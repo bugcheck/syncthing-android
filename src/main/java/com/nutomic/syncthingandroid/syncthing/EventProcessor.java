@@ -99,7 +99,8 @@ public class EventProcessor implements SyncthingService.OnWebGuiAvailableListene
                         .setAction(SettingsActivity.ACTION_DEVICE_SETTINGS)
                         .putExtra(SettingsActivity.EXTRA_IS_CREATE, true)
                         .putExtra(DeviceFragment.EXTRA_DEVICE_ID, deviceId);
-                PendingIntent pi = PendingIntent.getActivity(mContext, 0, intent, 0);
+                PendingIntent pi = PendingIntent.getActivity(mContext, deviceId.hashCode(),
+                        intent, 0);
 
                 String title = mContext.getString(R.string.device_rejected,
                         deviceId.substring(0, 7));
@@ -116,7 +117,8 @@ public class EventProcessor implements SyncthingService.OnWebGuiAvailableListene
                         .putExtra(SettingsActivity.EXTRA_IS_CREATE, true)
                         .putExtra(FolderFragment.EXTRA_DEVICE_ID, deviceId)
                         .putExtra(FolderFragment.EXTRA_FOLDER_ID, folderId);
-                pi = PendingIntent.getActivity(mContext, 0, intent, 0);
+                pi = PendingIntent.getActivity(mContext, (deviceId + folderId).hashCode(),
+                        intent, 0);
 
                 String deviceName = null;
                 for (RestApi.Device d : mApi.getDevices(false)) {
